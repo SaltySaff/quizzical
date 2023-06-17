@@ -1,0 +1,11 @@
+body {
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(./assets/blue-blob.png), url(./assets/yellow-blob.png);
+  background-repeat: no-repeat, no-repeat;
+  background-position: bottom left, top right;
+  background-size: 200px 200px, 200px 200px;
+}
