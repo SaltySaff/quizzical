@@ -1,0 +1,37 @@
+.question-container {
+
+}
+
+.question--choice-container {
+    display: flex;
+    gap: 13px;
+}
+
+.question--title {
+    font-family: 'Karla';
+    font-weight: 700;
+    line-height: 19px;
+    font-size: 1rem;
+    color: #293264;
+}
+
+.question--answer-btn {
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 0.65rem;
+    border: 0.794239px solid #4D5B9E;
+    border-radius: 7.94239px;
+    background-color: transparent;
+    width: 65px;
+    height: 20px;
+    color: #293264;
+}
+
+.question--answer-btn:hover {
+    border: none;
+    background: #D6DBF5;
+}
+
+hr {
+    margin-top: 15px;
+}
