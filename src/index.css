@@ -1,6 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
+  margin: 0;
   font-family: 'Inter', sans-serif;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,4 +13,5 @@ body {
   background-repeat: no-repeat, no-repeat;
   background-position: bottom left, top right;
   background-size: 200px 200px, 200px 200px;
+  padding: 1em 0;
 }

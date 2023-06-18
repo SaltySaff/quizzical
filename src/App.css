@@ -1,0 +1,19 @@
+.question-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.check-answers {
+    border: none;
+    background: #4D5B9E;
+    border-radius: 10px;
+    color: #F5F7FB;
+    font-family: inherit;
+    width: 120px;
+    height: 35px;
+    font-size: 0.625rem;
+    font-weight: 600;
+    margin: 1em 0 0.5em 0;
+    align-self: center;
+}
