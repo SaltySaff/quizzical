@@ -1,5 +1,5 @@
 .question-container {
-
+    max-width: 700px;
 }
 
 .question--choice-container {
@@ -22,8 +22,6 @@
     border: 0.794239px solid #4D5B9E;
     border-radius: 7.94239px;
     background-color: transparent;
-    width: 65px;
-    height: 20px;
     color: #293264;
 }
 
@@ -34,4 +32,5 @@
 
 hr {
     margin-top: 15px;
+    border: 0.5px solid #DBDEF0;
 }

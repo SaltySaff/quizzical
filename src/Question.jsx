@@ -1,14 +1,15 @@
 import './Question.css'
 
-export default function Question() {
+export default function Question(props) {
+    const answerElements = props.possibleAnswers.map(answer => (
+        <button className="question--answer-btn">{answer}</button>
+    ));
+
     return (
         <section className="question-container">
-            <h2 className="question--title">How would one say goodbye in Spanish?</h2>
+            <h2 className="question--title">{props.question}</h2>
             <div className="question--choice-container">
-                <button className="question--answer-btn">Adios</button>
-                <button className="question--answer-btn">Hola</button>
-                <button className="question--answer-btn">Au Revoir</button>
-                <button className="question--answer-btn">Salir</button>
+                {answerElements}    
             </div>
             <hr />
         </section>
