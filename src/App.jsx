@@ -22,23 +22,44 @@ export default function App() {
     return {
       id: nanoid(),
       question: decode(question.question),
-      possibleAnswers: shuffleArray(
-        decodeArray([...question.incorrect_answers, question.correct_answer])
+      possibleAnswers: formatAnswers(
+        question.incorrect_answers,
+        question.correct_answer
       ),
       correct_answer: decode(question.correct_answer),
     };
   }
 
+  function formatAnswers(incorrectAnswers, correctAnswer) {
+    const answers = shuffleArray([
+      ...decodeArray(incorrectAnswers),
+      decode(correctAnswer),
+    ]);
+    return answers.map((answer) => ({ text: answer, isSelected: false, result: "default" }));
+  }
+
+  function selectQuestion(question, selectedAnswer) {
+    const questionToUpdate = questions.find((q) => q.id === question.id);
+    questionToUpdate.possibleAnswers = questionToUpdate.possibleAnswers.map(
+      (answer) => {
+        return {
+          ...answer,
+          isSelected: answer.text === selectedAnswer.text,
+        };
+      }
+    );
+    setQuestions(questions.map(q => q.id === question.id ? questionToUpdate : q))
+  }
+
   const questionElements = questions.map((question) => (
     <Question
       key={question.id}
-      question={question.question}
+      question={question}
       correctAnswer={question.correct_answer}
       possibleAnswers={question.possibleAnswers}
+      selectQuestion={selectQuestion}
     />
   ));
-
-  console.log(questionElements);
 
   function shuffleArray(array) {
     let currentIndex = array.length,
@@ -58,19 +79,15 @@ export default function App() {
     return array.map((element) => decode(element));
   }
 
-  useEffect(() => {
-    console.log(questions);
-  }, [questions]);
-
   return (
     <main>
       {questions.length === 0 && <Intro getQuestions={getQuestions} />}
-      {questions.length > 0 && 
-      <div className="question-form-container">
-        {questionElements}
-        <button className="check-answers">Check Answers</button>
-      </div>
-      }
+      {questions.length > 0 && (
+        <div className="question-form-container">
+          {questionElements}
+          <button className="check-answers">Check Answers</button>
+        </div>
+      )}
     </main>
   );
 }
