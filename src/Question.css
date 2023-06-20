@@ -38,3 +38,19 @@ hr {
     border: 0.5px solid #DBDEF0;
 }
 
+@media screen and (min-width: 768px) { /* adjust this value as necessary */
+    .question--choice-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* or however many columns you want */
+        gap: 13px;
+    }
+
+    .question--title {
+        font-size: 1.1rem;
+    }
+
+    .question--answer-btn {
+        font-size: 0.75rem;
+        padding: 0.5em 1.2em;
+    }
+}

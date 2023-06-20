@@ -17,3 +17,25 @@
     margin: 1em 0 0.5em 0;
     align-self: center;
 }
+
+.correct-answers-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.correct-answers--text {
+    font-size: 0.8rem;
+    color: #293264;
+}
+
+@media screen and (min-width: 768px) { /* adjust this value as necessary */
+    .correct-answers--text {
+        font-size: 1rem;
+    }
+
+    .check-answers {
+        font-size: 0.8rem;
+    }
+}

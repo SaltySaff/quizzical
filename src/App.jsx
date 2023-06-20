@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 import Intro from "./Intro.jsx";
 import Question from "./Question.jsx";
@@ -7,9 +7,10 @@ import { decode } from "html-entities";
 
 export default function App() {
   const [questions, setQuestions] = useState([]);
+  const [gameFinished, setGameFinished] = useState(false);
 
   function getQuestions() {
-    fetch("https://opentdb.com/api.php?amount=5")
+    fetch("https://opentdb.com/api.php?amount=5&difficulty=medium")
       .then((res) => res.json())
       .then((questionsRes) => {
         setQuestions(
@@ -35,10 +36,14 @@ export default function App() {
       ...decodeArray(incorrectAnswers),
       decode(correctAnswer),
     ]);
-    return answers.map((answer) => ({ text: answer, isSelected: false, result: "default" }));
+    return answers.map((answer) => ({
+      text: answer,
+      isSelected: false,
+      isCorrect: answer === correctAnswer ? true : false,
+    }));
   }
 
-  function selectQuestion(question, selectedAnswer) {
+  function selectAnswer(question, selectedAnswer) {
     const questionToUpdate = questions.find((q) => q.id === question.id);
     questionToUpdate.possibleAnswers = questionToUpdate.possibleAnswers.map(
       (answer) => {
@@ -48,7 +53,9 @@ export default function App() {
         };
       }
     );
-    setQuestions(questions.map(q => q.id === question.id ? questionToUpdate : q))
+    setQuestions(
+      questions.map((q) => (q.id === question.id ? questionToUpdate : q))
+    );
   }
 
   const questionElements = questions.map((question) => (
@@ -57,7 +64,8 @@ export default function App() {
       question={question}
       correctAnswer={question.correct_answer}
       possibleAnswers={question.possibleAnswers}
-      selectQuestion={selectQuestion}
+      selectAnswer={selectAnswer}
+      gameFinished={gameFinished}
     />
   ));
 
@@ -79,13 +87,54 @@ export default function App() {
     return array.map((element) => decode(element));
   }
 
+  function checkQuestions() {
+    setGameFinished(true);
+  }
+
+  function calculateCorrectAnswers() {
+    let counter = 0
+    questions.forEach(question => {
+      question.possibleAnswers.forEach(answer => {
+        if (answer.isSelected && answer.isCorrect) {
+          counter += 1
+        }
+      })
+    })
+    return counter
+  }
+
+  function playAgain() {
+    setQuestions([])
+    setGameFinished(false)
+  }
+
   return (
     <main>
       {questions.length === 0 && <Intro getQuestions={getQuestions} />}
       {questions.length > 0 && (
         <div className="question-form-container">
           {questionElements}
-          <button className="check-answers">Check Answers</button>
+          {!gameFinished && (
+            <button
+              onClick={() => checkQuestions(questions)}
+              className="check-answers"
+            >
+              Check Answers
+            </button>
+          )}
+          {gameFinished && (
+            <div className="correct-answers-container">
+              <h4 className="correct-answers--text">
+                You scored {calculateCorrectAnswers()}/4 correct answers.
+              </h4>
+              <button
+                onClick={playAgain}
+                className="check-answers correct-answers--btn"
+              >
+                Play again
+              </button>
+            </div>
+          )}
         </div>
       )}
     </main>
