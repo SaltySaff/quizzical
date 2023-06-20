@@ -10,7 +10,7 @@ export default function App() {
   const [gameFinished, setGameFinished] = useState(false);
 
   function getQuestions() {
-    fetch("https://opentdb.com/api.php?amount=5&difficulty=medium")
+    fetch("https://opentdb.com/api.php?amount=5&difficulty=easy")
       .then((res) => res.json())
       .then((questionsRes) => {
         setQuestions(

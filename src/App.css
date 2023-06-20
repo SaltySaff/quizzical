@@ -36,6 +36,8 @@
     }
 
     .check-answers {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
+        width: 130px;
+        height: 40px;
     }
 }
